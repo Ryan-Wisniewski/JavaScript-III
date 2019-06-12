@@ -42,30 +42,35 @@
 
 function GameObject(attributes) {
   this.name = attributes.name
+  this.createdAt= attributes.createdAt
+  this.dimensions = attributes.dimensions
 }
-
 GameObject.prototype.destroy= function(){
   return `${this.name} was removed from the game`
 }
 
 function CharacterStats(attributes){
   GameObject.call(this, attributes)
+  this.healthPoints = attributes.healthPoints
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype)
-CharacterStats.prototype.takeDamage = function(){}
+CharacterStats.prototype.takeDamage = function(){
+  return `${this.name} took damage.`
+}
 
 function Humanoid(attributes){
   CharacterStats.call(this, attributes)
-  this.weopon = attributes.weopon
+  this.language = attributes.language
+  this.weapons = attributes.weapons
+  this.team = attributes.team
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype)
-Humanoid.prototype.greet = function(){}
+Humanoid.prototype.greet = function(){
+  return `${this.name} offers a greeting in ${this.language}`
+}
 
-new Humanoid({
-  name: 'ryan'
-})
 
 
 
