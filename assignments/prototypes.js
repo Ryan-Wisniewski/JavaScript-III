@@ -16,6 +16,7 @@
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
+
 /*
   === CharacterStats ===
   * healthPoints
@@ -39,9 +40,38 @@
   * Instances of CharacterStats should have all of the same properties as GameObject.
 */
 
+function GameObject(attributes) {
+  this.name = attributes.name
+}
+
+GameObject.prototype.destroy= function(){
+  return `${this.name} was removed from the game`
+}
+
+function CharacterStats(attributes){
+  GameObject.call(this, attributes)
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype)
+CharacterStats.prototype.takeDamage = function(){}
+
+function Humanoid(attributes){
+  CharacterStats.call(this, attributes)
+  this.weopon = attributes.weopon
+}
+
+Humanoid.prototype = Object.create(CharacterStats.prototype)
+Humanoid.prototype.greet = function(){}
+
+new Humanoid({
+  name: 'ryan'
+})
+
+
+
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -102,7 +132,7 @@
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
